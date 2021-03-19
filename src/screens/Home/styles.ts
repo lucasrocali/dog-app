@@ -6,13 +6,11 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-
+    padding: 16,
   },
   textInput: {
     borderColor: '#DDD',
-    borderWidth: 1
+    borderWidth: 1,
+    padding: 6,
   },
-  row: {
-
-  }
 });

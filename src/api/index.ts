@@ -10,7 +10,7 @@ export async function getAllBreeds(): Promise<string[]> {
   return Object.keys(dataMessage)
 }
 
-export async function getBreedImages(breed: string, size: number = 3): Promise<string[]> {
+export async function getBreedImages(breed: string, size: number = 12): Promise<string[]> {
   const response = await dogBreedsApi.get(`breed/${breed}/images/random/${size}`)
   const images: string[] = response.data.message
   return images
