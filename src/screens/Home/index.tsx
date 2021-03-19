@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { SafeAreaView, StyleSheet, Text, TextInput, View, FlatList } from 'react-native'
 import { getAllBreeds, getBreedImages } from 'src/api'
-
-type Dog = {
-  breed: string
-  images: string[]
-}
+import { Dog } from 'src/@types'
+import styles from './styles'
+import DogCard from 'src/components/DogCard'
 
 export default function Home() {
 
@@ -50,13 +48,10 @@ export default function Home() {
     filteredBreeds.forEach(breed => handleBreedImages(breed))
   }, [filteredBreeds])
 
-  const renderItem = ({ item: { breed, images } }: { item: Dog }) => (
-    <View style={styles.row}>
-      <Text key={breed}>{breed}</Text>
-      {images && images.map(image => (
-        <Text key={image}>{image}</Text>
-      ))}
-    </View>
+  const renderItem = ({ item: dog }: { item: Dog }) => (
+    <DogCard
+      dog={dog}
+    />
   );
 
   const dogs: Dog[] = filteredBreeds.map(breed => ({ breed, images: imagesByBreed[breed] }))
@@ -79,20 +74,3 @@ export default function Home() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-
-  },
-  textInput: {
-    borderColor: '#DDD',
-    borderWidth: 1
-  },
-  row: {
-
-  }
-});
