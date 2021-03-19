@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, TextInput, View, FlatList } from 'react-native'
 import { getAllBreeds, getBreedImages } from 'src/api'
 import { Dog } from 'src/@types'
-import styles from './styles'
-import DogCard from 'src/components/DogCard'
+import HomeContainer from './container'
 
 export default function Home() {
 
@@ -48,29 +46,13 @@ export default function Home() {
     filteredBreeds.forEach(breed => handleBreedImages(breed))
   }, [filteredBreeds])
 
-  const renderItem = ({ item: dog }: { item: Dog }) => (
-    <DogCard
-      dog={dog}
-    />
-  );
-
   const dogs: Dog[] = filteredBreeds.map(breed => ({ breed, images: imagesByBreed[breed] }))
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={dogs}
-        ListHeaderComponent={(
-          <View style={styles.header}>
-            <TextInput
-              style={styles.textInput}
-              value={searchingText}
-              onChangeText={setSearchingText}
-            />
-          </View>
-        )}
-        renderItem={renderItem}
-      />
-    </SafeAreaView>
+    <HomeContainer
+      searchingText={searchingText}
+      dogs={dogs}
+      onSearchingTextChange={(searchingText) => setSearchingText(searchingText)}
+    />
   );
 }
